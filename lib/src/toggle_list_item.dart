@@ -180,46 +180,50 @@ class _ToggleListItemState extends State<ToggleListItem>
         index: index,
         child: Container(
           decoration: widget.itemDecoration,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              InkWell(
-                onTap: () => _onItemTapped(context),
-                child: AnimatedContainer(
-                  curve: data.curve,
-                  duration: data.toggleAnimationDuration,
-                  decoration: _isExpanded
-                      ? widget.expandedHeaderDecoration ??
-                          widget.headerDecoration
-                      : widget.headerDecoration,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      widget.leading,
-                      _isExpanded
-                          ? Expanded(
-                              child: widget.expandedTitle ?? widget.title,
-                            )
-                          : Expanded(child: widget.title),
-                      _buildTrailing(context),
-                    ],
-                  ),
-                ),
-              ),
-              if (child != null)
-                ClipRect(
-                  child: Align(
-                    heightFactor: _heightAnimation.value,
-                    child: Column(
+          child: InkWell(
+            onTap: () => _onItemTapped(context), 
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                InkWell(
+                  onTap: () => _onItemTapped(context),
+                  child: AnimatedContainer(
+                    curve: data.curve,
+                    duration: data.toggleAnimationDuration,
+                    decoration: _isExpanded
+                        ? widget.expandedHeaderDecoration ??
+                        widget.headerDecoration
+                        : widget.headerDecoration,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        widget.divider,
-                        child,
+                        widget.leading,
+                        _isExpanded
+                            ? Expanded(
+                          child: widget.expandedTitle ?? widget.title,
+                        )
+                            : Expanded(child: widget.title),
+                        _buildTrailing(context),
                       ],
                     ),
                   ),
                 ),
-            ],
-          ),
+                if (child != null)
+                  ClipRect(
+                    child: Align(
+                      heightFactor: _heightAnimation.value,
+                      child: Column(
+                        children: [
+                          widget.divider,
+                          child,
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          )
+          ,
         ),
       ),
     );
