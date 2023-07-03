@@ -194,18 +194,27 @@ class _ToggleListItemState extends State<ToggleListItem>
                         ? widget.expandedHeaderDecoration ??
                         widget.headerDecoration
                         : widget.headerDecoration,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    child:Stack(
                       children: [
-                        widget.leading,
-                        _isExpanded
-                            ? Expanded(
-                          child: widget.expandedTitle ?? widget.title,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            widget.leading,
+                            _isExpanded
+                                ? Expanded(
+                              child: widget.expandedTitle ?? widget.title,
+                            )
+                                : Expanded(child: widget.title),
+
+                          ],
+                        ),
+                        Container(
+                          alignment: AlignmentDirectional.centerEnd,
+                          child:  _buildTrailing(context),
                         )
-                            : Expanded(child: widget.title),
-                        _buildTrailing(context),
                       ],
-                    ),
+                    )
+
                   ),
                 ),
                 if (child != null)
